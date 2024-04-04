@@ -1,45 +1,38 @@
 import React, { useState } from 'react';
-import { useRecoilState } from 'recoil';
-import { hourSelector, minutesState } from './recoil/atoms';
+import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import StrictModeDroppable from './components/StrictModeDroppable';
 
 function App() {
-  const [minutes, setMinutes] = useRecoilState(minutesState);
-  const [hours, setHours] = useRecoilState(hourSelector);
-  const onMinutesChange = (e: React.FormEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    setMinutes(+e.currentTarget.value);
-  };
-  const onHoursChange = (e: React.FormEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    const {
-      currentTarget: { value },
-    } = e;
-    setHours(+value);
-  };
+  const onDragEnd = () => {};
+
   return (
-    <div>
-      <label htmlFor='minutes'>분(minutes)</label>
-      <input
-        className='inline-block my-2 border border-slate-300 p-1 rounded-sm'
-        type='number'
-        name='minutes'
-        id='minutes'
-        placeholder='Minutes'
-        value={minutes}
-        onChange={onMinutesChange}
-      />
-      <br />
-      <label htmlFor='hours'>시(hours)</label>
-      <input
-        className='inline-block my-2 border border-slate-300 p-1 rounded-sm'
-        type='number'
-        name='hours'
-        id='hours'
-        placeholder='Hours'
-        value={hours}
-        onChange={onHoursChange}
-      />
-    </div>
+    <DragDropContext onDragEnd={onDragEnd}>
+      <div>
+        <StrictModeDroppable droppableId='before'>
+          {(provided) => {
+            return (
+              <ul ref={provided.innerRef} {...provided.droppableProps}>
+                <Draggable draggableId='first' index={1}>
+                  {(provided) => (
+                    <li ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                      one
+                    </li>
+                  )}
+                </Draggable>
+                <Draggable draggableId='second' index={2}>
+                  {(provided) => (
+                    <li ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                      two
+                    </li>
+                  )}
+                </Draggable>
+                {provided.placeholder}
+              </ul>
+            );
+          }}
+        </StrictModeDroppable>
+      </div>
+    </DragDropContext>
   );
 }
 
