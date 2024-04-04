@@ -1,35 +1,46 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { hourSelector, minutesState } from './recoil/atoms';
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  const [minutes, setMinutes] = useRecoilState(minutesState);
+  const [hours, setHours] = useRecoilState(hourSelector);
+  const onMinutesChange = (e: React.FormEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    setMinutes(+e.currentTarget.value);
+  };
+  const onHoursChange = (e: React.FormEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    const {
+      currentTarget: { value },
+    } = e;
+    setHours(+value);
+  };
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div>
+      <label htmlFor='minutes'>분(minutes)</label>
+      <input
+        className='inline-block my-2 border border-slate-300 p-1 rounded-sm'
+        type='number'
+        name='minutes'
+        id='minutes'
+        placeholder='Minutes'
+        value={minutes}
+        onChange={onMinutesChange}
+      />
+      <br />
+      <label htmlFor='hours'>시(hours)</label>
+      <input
+        className='inline-block my-2 border border-slate-300 p-1 rounded-sm'
+        type='number'
+        name='hours'
+        id='hours'
+        placeholder='Hours'
+        value={hours}
+        onChange={onHoursChange}
+      />
+    </div>
+  );
 }
 
-export default App
+export default App;
