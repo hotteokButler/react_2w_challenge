@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
+
+.wrap {
+  @apply grid grid-rows-3 grid-cols-1 place-items-stretch content-center justify-center gap-7 bg-slate-700 w-full h-screen m-0 p-9 md:py-12 md:px-14 md:grid-rows-1 md:grid-cols-3;
+}
+.board {
+  @apply block w-full max-w-md min-h-20 overflow-auto h-full mx-auto p-3 rounded-md shadow-2xl  shadow-slate-900 md:h-5/6;
+}
+.card {
+  @apply flex items-center p-3 m-3 font-bold rounded-md shadow-lg bg-white;
+}
+.card_btn {
+  @apply inline-block p-2 text-lg rounded-md bg-slate-400 mr-2 hover:bg-slate-900 active:bg-slate-900 hover:text-white active:text-white;
+}
+
 @tailwind utilities;
