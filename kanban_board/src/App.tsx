@@ -11,9 +11,9 @@ function App() {
   const onDragEnd = ({ destination, source, draggableId }: DropResult) => {
     if (!destination) return;
     setLists((oldList) => {
-      const newLists = [...oldList];
-      newLists.splice(source.index, 1);
-      newLists.splice(destination?.index, 0, draggableId);
+      const newLists = { ...oldList };
+      // newLists.splice(source.index, 1);
+      // newLists.splice(destination?.index, 0, draggableId);
       return newLists;
     });
   };
@@ -21,18 +21,22 @@ function App() {
   return (
     <div className='wrap'>
       <DragDropContext onDragEnd={onDragEnd}>
-        <StrictModeDroppable droppableId='one'>
-          {(provided) => {
-            return (
-              <BoardList
-                provided={provided}
-                bd_obj={{ bd_color: 'bg-rose-50', bd_title: 'first', bd_title_color: 'text-violet-600' }}
-              >
-                {lists && lists.map((elem, idx) => <Card card={elem} index={idx} key={elem} />)}
-              </BoardList>
-            );
-          }}
-        </StrictModeDroppable>
+        {Object.keys(lists).map((elem, idx) => (
+          <StrictModeDroppable droppableId={elem} key={idx}>
+            {(provided) => {
+              return (
+                <BoardList
+                  provided={provided}
+                  bd_obj={{ bd_color: 'bg-rose-50', bd_title: elem, bd_title_color: 'text-violet-600' }}
+                >
+                  {lists[elem].map((elem, idx) => (
+                    <Card card={elem} index={idx} key={elem} />
+                  ))}
+                </BoardList>
+              );
+            }}
+          </StrictModeDroppable>
+        ))}
       </DragDropContext>
     </div>
   );
