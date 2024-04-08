@@ -1,25 +1,25 @@
-import React from 'react';
-import { DraggableProvided, DraggableRubric, DraggableStateSnapshot, DraggableChildrenFn } from 'react-beautiful-dnd';
+import React, { memo } from 'react';
+import { Draggable } from 'react-beautiful-dnd';
 import { FiMenu } from 'react-icons/fi';
 
 interface ICard {
-  provided: DraggableProvided;
-  snapshot?: DraggableStateSnapshot;
-  rubric?: DraggableRubric;
-  children?: React.ReactNode;
-  text?: string | undefined;
+  index: number;
+  card: string;
 }
 
-export default function Card({ provided, snapshot, rubric, text, children }: ICard) {
+const Card = memo(function Card({ card, index }: ICard) {
+  console.log(card + 'is rendered');
   return (
-    <>
-      <li className='card' ref={provided.innerRef} {...provided.draggableProps}>
-        <span className='card_btn' {...provided.dragHandleProps}>
-          <FiMenu />
-        </span>
-        {text}
-        {children}
-      </li>
-    </>
+    <Draggable draggableId={card} index={index}>
+      {(provided) => (
+        <li className='card' ref={provided.innerRef} {...provided.draggableProps}>
+          <span className='card_btn' {...provided.dragHandleProps}>
+            <FiMenu />
+          </span>
+          {card}
+        </li>
+      )}
+    </Draggable>
   );
-}
+});
+export default Card;

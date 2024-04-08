@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { DragDropContext, Draggable, DropResult } from 'react-beautiful-dnd';
+import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import StrictModeDroppable from '@/components/StrictModeDroppable';
 import BoardList from '@/components/BoardList';
 import Card from '@/components/Card';
@@ -16,8 +16,6 @@ function App() {
       newLists.splice(destination?.index, 0, draggableId);
       return newLists;
     });
-
-    console.log(destination, source);
   };
 
   return (
@@ -30,50 +28,11 @@ function App() {
                 provided={provided}
                 bd_obj={{ bd_color: 'bg-rose-50', bd_title: 'first', bd_title_color: 'text-violet-600' }}
               >
-                {lists &&
-                  lists.map((elem, idx) => (
-                    <Draggable draggableId={elem} index={idx} key={elem}>
-                      {(provided) => <Card provided={provided} text={elem} />}
-                    </Draggable>
-                  ))}
+                {lists && lists.map((elem, idx) => <Card card={elem} index={idx} key={elem} />)}
               </BoardList>
             );
           }}
         </StrictModeDroppable>
-        {/* 
-        <StrictModeDroppable droppableId='two'>
-          {(provided) => {
-            return (
-              <BoardList
-                provided={provided}
-                bd_obj={{ bd_color: 'bg-rose-200', bd_title: 'second', bd_title_color: 'text-violet-600' }}
-              >
-                <Draggable draggableId='c' index={1}>
-                  {(provided) => <Card provided={provided} text='ho'></Card>}
-                </Draggable>
-              </BoardList>
-            );
-          }}
-        </StrictModeDroppable>
-
-        <StrictModeDroppable droppableId='three'>
-          {(provided) => {
-            return (
-              <BoardList
-                provided={provided}
-                bd_obj={{
-                  bd_color: 'bg-rose-300',
-                  bd_title: 'third',
-                  bd_title_color: 'text-violet-600',
-                }}
-              >
-                <Draggable draggableId='d' index={1}>
-                  {(provided) => <Card provided={provided} text='ho'></Card>}
-                </Draggable>
-              </BoardList>
-            );
-          }}
-        </StrictModeDroppable> */}
       </DragDropContext>
     </div>
   );
