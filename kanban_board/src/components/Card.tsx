@@ -8,7 +8,6 @@ interface ICard {
 }
 
 const Card = memo(function Card({ card, index }: ICard) {
-  console.log(card + 'is rendered');
   return (
     <Draggable draggableId={card} index={index}>
       {(provided) => (
