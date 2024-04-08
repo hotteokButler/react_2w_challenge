@@ -8,16 +8,16 @@ import { listState } from '@/recoil/atoms';
 
 function App() {
   const [lists, setLists] = useRecoilState(listState);
-  const onDragEnd = ({ destination, source }: DropResult) => {
+  const onDragEnd = ({ destination, source, draggableId }: DropResult) => {
     if (!destination) return;
     setLists((oldList) => {
       const newLists = [...oldList];
-      const target = newLists.splice(source.index, 1);
-      newLists.splice(destination?.index, 0, target[0]);
+      newLists.splice(source.index, 1);
+      newLists.splice(destination?.index, 0, draggableId);
       return newLists;
     });
 
-    console.log(lists);
+    console.log(destination, source);
   };
 
   return (
