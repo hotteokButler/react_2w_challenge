@@ -6,9 +6,10 @@ interface ICard {
   provided: DraggableProvided;
   snapshot?: DraggableStateSnapshot;
   rubric?: DraggableRubric;
-  children?: React.ReactElement | React.ReactElement[];
+  children?: React.ReactNode;
   text?: string | undefined;
 }
+
 export default function Card({ provided, snapshot, rubric, text, children }: ICard) {
   return (
     <>
