@@ -2,35 +2,38 @@ import React, { useState } from 'react';
 import { DragDropContext, Draggable } from 'react-beautiful-dnd';
 import StrictModeDroppable from '@/components/StrictModeDroppable';
 import BoardList from '@/components/BoardList';
-import Card from './components/Card';
-
-const toDos = ['1', '2', '3', '4'];
+import Card from '@/components/Card';
+import { useRecoilState } from 'recoil';
+import { listState } from '@/recoil/atoms';
 
 function App() {
-  const onDragEnd = () => {};
+  const [lists, setLists] = useRecoilState(listState);
+  const onDragEnd = (args: any) => {
+    console.log(args);
+  };
 
   return (
     <div className='wrap'>
       <DragDropContext onDragEnd={onDragEnd}>
-        <StrictModeDroppable droppableId='before'>
+        <StrictModeDroppable droppableId='one'>
           {(provided) => {
             return (
               <BoardList
                 provided={provided}
                 bd_obj={{ bd_color: 'bg-rose-50', bd_title: 'first', bd_title_color: 'text-violet-600' }}
               >
-                {toDos.map((elem, idx) => (
-                  <Draggable draggableId={elem} index={idx} key={idx}>
-                    {(provided) => <Card provided={provided} text={elem} />}
-                  </Draggable>
-                ))}
+                {lists &&
+                  lists.map((elem, idx) => (
+                    <Draggable draggableId={elem} index={idx} key={idx}>
+                      {(provided) => <Card provided={provided} text={elem} />}
+                    </Draggable>
+                  ))}
               </BoardList>
             );
           }}
         </StrictModeDroppable>
-      </DragDropContext>
-      <DragDropContext onDragEnd={onDragEnd}>
-        <StrictModeDroppable droppableId='before'>
+
+        <StrictModeDroppable droppableId='two'>
           {(provided) => {
             return (
               <BoardList
@@ -44,9 +47,8 @@ function App() {
             );
           }}
         </StrictModeDroppable>
-      </DragDropContext>
-      <DragDropContext onDragEnd={onDragEnd}>
-        <StrictModeDroppable droppableId='before'>
+
+        <StrictModeDroppable droppableId='three'>
           {(provided) => {
             return (
               <BoardList
