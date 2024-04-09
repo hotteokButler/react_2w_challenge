@@ -14,18 +14,22 @@ function App() {
 
     if (!destination?.droppableId) return;
     if (destination?.droppableId === source.droppableId) {
-      const newList = [...lists[source.droppableId]];
-      newList.splice(source.index, 1);
-      newList.splice(destination.index, 0, draggableId);
-      setLists((prev) => ({ ...prev, [destination.droppableId]: newList }));
+      setLists((boardLists) => {
+        const newList = [...boardLists[source.droppableId]];
+        newList.splice(source.index, 1);
+        newList.splice(destination.index, 0, draggableId);
+
+        return { ...boardLists, [destination.droppableId]: newList };
+      });
     } else {
-      const originList = [...lists[source.droppableId]];
-      const movedList = [...lists[destination?.droppableId]];
+      setLists((BoardLists) => {
+        const originList = [...BoardLists[source.droppableId]];
+        const movedList = [...BoardLists[destination?.droppableId]];
 
-      originList.splice(source.index, 1);
-      movedList.splice(destination.index, 0, draggableId);
-
-      setLists((prev) => ({ ...prev, [source.droppableId]: originList, [destination.droppableId]: movedList }));
+        originList.splice(source.index, 1);
+        movedList.splice(destination.index, 0, draggableId);
+        return { ...BoardLists, [source.droppableId]: originList, [destination.droppableId]: movedList };
+      });
     }
   };
 
