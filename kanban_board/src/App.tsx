@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import StrictModeDroppable from '@/components/StrictModeDroppable';
 import BoardList from '@/components/BoardList';
@@ -9,7 +10,6 @@ import { listState } from '@/recoil/atoms';
 function App() {
   const [lists, setLists] = useRecoilState(listState);
   const onDragEnd = (info: DropResult) => {
-    console.log(info);
     const { destination, draggableId, source } = info;
 
     if (!destination?.droppableId) return;
