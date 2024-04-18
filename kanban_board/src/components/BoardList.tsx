@@ -22,11 +22,11 @@ export default function BoardList({
 }: IBoard) {
   return (
     <section className={`board ${bd_color ? bd_color : 'bg-white'}`}>
-      <h3 className={`pt-2 pl-3 text-2xl font-bold ${bd_title_color}`}>
+      <h3 className={`pt-2 pl-3 pb-3 text-2xl font-bold ${bd_title_color}`}>
         <BsArrowUpRightSquareFill className={`inline-block align-top mr-2 ${bd_title_color}`} />
         {bd_title}
       </h3>
-      <ul ref={provided.innerRef} {...provided.droppableProps}>
+      <ul className={`h-full m-2 p-1 rounded-md duration-700 ${snapshot?.isDraggingOver ? 'bg-purple-800' :'bg-black/10'}`} ref={provided.innerRef} {...provided.droppableProps}>
         {children}
         {provided.placeholder}
       </ul>

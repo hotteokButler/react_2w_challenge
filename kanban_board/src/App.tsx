@@ -38,10 +38,11 @@ function App() {
       <DragDropContext onDragEnd={onDragEnd}>
         {Object.keys(lists).map((elem, idx) => (
           <StrictModeDroppable droppableId={elem} key={idx}>
-            {(provided) => {
+            {(provided, snapshot) => {
               return (
                 <BoardList
                   provided={provided}
+                  snapshot={snapshot}
                   bd_obj={{ bd_color: 'bg-rose-50', bd_title: elem, bd_title_color: 'text-violet-600' }}
                 >
                   {lists[elem].map((elem, idx) => (
