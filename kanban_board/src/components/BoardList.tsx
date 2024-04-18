@@ -26,7 +26,13 @@ export default function BoardList({
         <BsArrowUpRightSquareFill className={`inline-block align-top mr-2 ${bd_title_color}`} />
         {bd_title}
       </h3>
-      <ul className={`h-full m-2 p-1 rounded-md duration-700 ${snapshot?.isDraggingOver ? 'bg-purple-800' :'bg-black/10'}`} ref={provided.innerRef} {...provided.droppableProps}>
+      <ul
+        className={`h-full m-2 p-1 rounded-md duration-700 ${
+          snapshot?.isDraggingOver ? ( snapshot.draggingFromThisWith ? 'bg-white/70' :'bg-purple-800') : 'bg-black/10'
+        }`}
+        ref={provided.innerRef}
+        {...provided.droppableProps}
+      >
         {children}
         {provided.placeholder}
       </ul>
