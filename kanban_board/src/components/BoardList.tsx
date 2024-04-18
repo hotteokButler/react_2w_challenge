@@ -28,7 +28,7 @@ export default function BoardList({
       </h3>
       <ul
         className={`h-full m-2 p-1 rounded-md duration-700 ${
-          snapshot?.isDraggingOver ? ( snapshot.draggingFromThisWith ? 'bg-white/70' :'bg-purple-800') : 'bg-black/10'
+          snapshot?.isDraggingOver ? ( snapshot.draggingFromThisWith ? 'bg-white/70' :'bg-purple-800/50') : 'bg-black/10'
         }`}
         ref={provided.innerRef}
         {...provided.droppableProps}
